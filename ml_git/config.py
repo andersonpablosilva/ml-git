@@ -304,7 +304,10 @@ def create_workspace_tree_structure(repo_type, artifact_name, categories, store_
                                     imported_dir, mutability):
     # get root path to create directories and files
     path = get_root_path()
-    artifact_path = os.path.join(path, repo_type, artifact_name)
+
+    categories_path = os.path.join(*categories)
+    artifact_path = os.path.join(path, categories_path, repo_type, artifact_name)
+
     if os.path.exists(artifact_path):
         raise PermissionError('An entity with that name already exists.')
     data_path = os.path.join(artifact_path, 'data')
