@@ -117,12 +117,9 @@ class HashFS(object):
             for file in files_to_keep:
                 log_file.write("%s\n" % file)
 
-    def _log(self, objkey, links=[], log_file=None):
+    def _log(self, objkey, log_file=None):
         log.debug('Update log for key [%s]' % objkey, class_name=HASH_FS_CLASS_NAME)
-        log_file.write("%s\n" % (objkey))
-        for link in links:
-            h = link['Hash']
-            log_file.write("%s\n" % (h))
+        log_file.write('%s\n' % (objkey))
 
     def get_log(self):
         log.debug('Loading log file', class_name=HASH_FS_CLASS_NAME)
@@ -236,34 +233,17 @@ class MultihashFS(HashFS):
         return str(cid)
 
     def put(self, srcfile):
-        links = []
         with open(srcfile, 'rb') as f:
-            while True:
-                d = f.read()
-                if not d:
-                    break
-                scid = self._digest(d)
-                self._store_chunk(scid, d)
-                links.append({'Hash': scid, 'Size': len(d)})
-
-        ls = json.dumps({'Links': links})
-        scid = self._digest(ls.encode())
-        self._store_chunk(scid, ls.encode())
-        return scid
+            d = f.read()
+            scid = self._digest(d)
+            self._store_chunk(scid, d)
+            return scid
 
     def get_scid(self, srcfile):
-        links = []
         with open(srcfile, 'rb') as f:
-            while True:
-                d = f.read()
-                if not d:
-                    break
-                scid = self._digest(d)
-                links.append({'Hash': scid, 'Size': len(d)})
-
-        ls = json.dumps({'Links': links})
-        scid = self._digest(ls.encode())
-        return scid
+            d = f.read()
+            scid = self._digest(d)
+            return scid
 
     def _copy(self, objectkey, dstfile):
         corruption_found = False
@@ -285,24 +265,12 @@ class MultihashFS(HashFS):
 
     def get(self, object_key, dst_file_path):
         size = 0
-        descriptor = json_load(self._get_hashpath(object_key))
-        json_objects = json.dumps(descriptor).encode()
-        is_corrupted = not self._check_integrity(object_key, json_objects)
-        if is_corrupted:
-            return size
         successfully_wrote = True
+
         # concat all chunks to dstfile
         try:
             with open(dst_file_path, 'wb') as dst_file:
-                for chunk in descriptor['Links']:
-                    chunk_hash = chunk['Hash']
-                    blob_size = chunk['Size']
-                    log.debug('Get chunk [%s]-[%d]' % (chunk_hash, blob_size), class_name=HASH_FS_CLASS_NAME)
-                    size += int(blob_size)
-
-                    successfully_wrote = self._write_chunk_in_file(chunk_hash, dst_file)
-                    if not successfully_wrote:
-                        break
+                successfully_wrote = self._write_chunk_in_file(object_key, dst_file)
         except Exception as e:
             if os.path.exists(dst_file_path):
                 os.remove(dst_file_path)
@@ -315,13 +283,10 @@ class MultihashFS(HashFS):
 
     def _write_chunk_in_file(self, chunk_hash, dst_file):
         with open(self._get_hashpath(chunk_hash), 'rb') as chunk_file:
-            while True:
-                chunk_bytes = chunk_file.read(self._blk_size)
-                if not chunk_bytes:
-                    break
-                if self._check_integrity(chunk_hash, chunk_bytes) is False:
-                    return False
-                dst_file.write(chunk_bytes)
+            chunk_bytes = chunk_file.read()
+            if self._check_integrity(chunk_hash, chunk_bytes) is False:
+                return False
+            dst_file.write(chunk_bytes)
         return True
 
     def load(self, key):
@@ -331,8 +296,7 @@ class MultihashFS(HashFS):
     def fetch_scid(self, key, log_file=None):
         log.debug('Building the store.log with these added files', class_name=HASH_FS_CLASS_NAME)
         if self._exists(key):
-            links = self.load(key)
-            self._log(key, links['Links'], log_file)
+            self._log(key, log_file)
         else:
             log.debug('Blob %s already commited' % key, class_name=HASH_FS_CLASS_NAME)
 
@@ -380,11 +344,8 @@ class MultihashFS(HashFS):
                 fullpath = os.path.join(root, file)
                 with open(fullpath, 'rb') as c:
                     m = hashlib.sha256()
-                    while True:
-                        d = c.read(self._blk_size)
-                        if not d:
-                            break
-                        m.update(d)
+                    d = c.read()
+                    m.update(d)
                     self._verify_chunk_integrity(corrupted_files, corrupted_files_fullpaths, file, fullpath, m, root)
                 if root[:-2] != last_path:
                     last_path = root[:-2]

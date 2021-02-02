@@ -272,17 +272,17 @@ class LocalRepository(MultihashFS):
                 return False
             wp_ipld.progress_bar_close()
             del wp_ipld
-
-            wp_blob = self._create_pool(self.__config, manifest['store'], retries, len(files), 'chunks')
-
-            args['wp'] = wp_blob
-            args['error_msg'] = 'Error to fetch blob -- [%s]'
-            args['function'] = self._fetch_blob
-            result = run_function_per_group(lkeys, 20, function=self._fetch_batch, arguments=args)
-            if not result:
-                return False
-            wp_blob.progress_bar_close()
-            del wp_blob
+            #
+            # wp_blob = self._create_pool(self.__config, manifest['store'], retries, len(files), 'chunks')
+            #
+            # args['wp'] = wp_blob
+            # args['error_msg'] = 'Error to fetch blob -- [%s]'
+            # args['function'] = self._fetch_blob
+            # result = run_function_per_group(lkeys, 20, function=self._fetch_batch, arguments=args)
+            # if not result:
+            #     return False
+            # wp_blob.progress_bar_close()
+            # del wp_blob
 
         return True
 
