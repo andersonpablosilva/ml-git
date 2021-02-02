@@ -239,7 +239,7 @@ class MultihashFS(HashFS):
         links = []
         with open(srcfile, 'rb') as f:
             while True:
-                d = f.read(self._blk_size)
+                d = f.read()
                 if not d:
                     break
                 scid = self._digest(d)
@@ -255,7 +255,7 @@ class MultihashFS(HashFS):
         links = []
         with open(srcfile, 'rb') as f:
             while True:
-                d = f.read(self._blk_size)
+                d = f.read()
                 if not d:
                     break
                 scid = self._digest(d)
