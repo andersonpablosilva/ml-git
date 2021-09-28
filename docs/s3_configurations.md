@@ -30,29 +30,29 @@ You can configure the AWS in three ways (environment variables, through the cons
 
 1 - Environment Variables
 
-   **Linux or macOS**:
+**Linux or macOS**:
 
-    ```
-    $ export AWS_ACCESS_KEY_ID=your-access-key
-    $ export AWS_SECRET_ACCESS_KEY=your-secret-access-key
-    $ export AWS_DEFAULT_REGION=us-west-2
-    ```
+```sh
+$ export AWS_ACCESS_KEY_ID=your-access-key
+$ export AWS_SECRET_ACCESS_KEY=your-secret-access-key
+$ export AWS_DEFAULT_REGION=us-west-2
+```
 
-   **Windows**:
+**Windows**:
     
-    ```
-    C:\> setx AWS_ACCESS_KEY_ID your-access-key
-    C:\> setx AWS_SECRET_ACCESS_KEY your-secret-access-key
-    C:\> setx AWS_DEFAULT_REGION us-west-2
-    ```
+```powershell
+C:\> setx AWS_ACCESS_KEY_ID your-access-key
+C:\> setx AWS_SECRET_ACCESS_KEY your-secret-access-key
+C:\> setx AWS_DEFAULT_REGION us-west-2
+```
 
 2 -  Console 
    
-   From the home directory (UserProfile) execute:   
+From the home directory (UserProfile) execute:   
             
-   ```
-   $ mkdir .aws
-   ```
+```
+$ mkdir .aws
+```
    
    You need to create two files to store the sensitive credential information (~/.aws/credentials) separated from the less sensitive configuration options (~/.aws/config). To create these two files type the following commands:
         
