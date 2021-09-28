@@ -79,14 +79,16 @@ $ mkdir .aws
 
    For general use, the *aws configure* command is the fastest way to set up, but requires the AWS CLI installed. For install and configure type the following commands:
 
-   ```
-   $ pip install awscli
-   $ aws configure
-   AWS Access Key ID [None]: your-access-key
-   AWS Secret Access Key [None]: your-secret-access-key
-   Default region name [None]: bucket-region
-   Default output format [None]: json
-   ```
+```sh
+pip install awscli
+aws configure
+```
+```
+AWS Access Key ID [None]: your-access-key
+AWS Secret Access Key [None]: your-secret-access-key
+Default region name [None]: bucket-region
+Default output format [None]: json
+```
 
    These commands will create the files ~/.aws/credentials and ~/.aws/config.
 
