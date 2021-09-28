@@ -40,7 +40,7 @@ export AWS_DEFAULT_REGION=us-west-2
 
 **Windows**:
     
-```powershell
+```bash
 setx AWS_ACCESS_KEY_ID your-access-key
 setx AWS_SECRET_ACCESS_KEY your-secret-access-key
 setx AWS_DEFAULT_REGION us-west-2
