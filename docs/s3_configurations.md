@@ -58,7 +58,7 @@ $ mkdir .aws
         
    For config file:
         
-   ```
+   ```shell
    $ echo "
    [your-profile-name]
    region=bucket-region
