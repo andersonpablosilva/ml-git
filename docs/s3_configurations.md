@@ -40,7 +40,7 @@ export AWS_DEFAULT_REGION=us-west-2
 
 **Windows**:
     
-```bash
+```batchfile
 setx AWS_ACCESS_KEY_ID your-access-key
 setx AWS_SECRET_ACCESS_KEY your-secret-access-key
 setx AWS_DEFAULT_REGION us-west-2
@@ -58,7 +58,7 @@ $ mkdir .aws
         
    For config file:
         
-   ```shell
+   ```batchfile
    $ echo "
    [your-profile-name]
    region=bucket-region
@@ -67,7 +67,7 @@ $ mkdir .aws
    ```
 
    For credentials file:
-   ```
+   ```powershell
    $ echo "
    [your-profile-name]
    aws_access_key_id = your-access-key
