@@ -33,17 +33,17 @@ You can configure the AWS in three ways (environment variables, through the cons
 **Linux or macOS**:
 
 ```sh
-$ export AWS_ACCESS_KEY_ID=your-access-key
-$ export AWS_SECRET_ACCESS_KEY=your-secret-access-key
-$ export AWS_DEFAULT_REGION=us-west-2
+export AWS_ACCESS_KEY_ID=your-access-key
+export AWS_SECRET_ACCESS_KEY=your-secret-access-key
+export AWS_DEFAULT_REGION=us-west-2
 ```
 
 **Windows**:
     
 ```powershell
-C:\> setx AWS_ACCESS_KEY_ID your-access-key
-C:\> setx AWS_SECRET_ACCESS_KEY your-secret-access-key
-C:\> setx AWS_DEFAULT_REGION us-west-2
+setx AWS_ACCESS_KEY_ID your-access-key
+setx AWS_SECRET_ACCESS_KEY your-secret-access-key
+setx AWS_DEFAULT_REGION us-west-2
 ```
 
 2 -  Console 
